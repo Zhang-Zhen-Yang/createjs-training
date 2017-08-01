@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Stage :size="{width:500,height:500}">
+    <Stage :size="{width:500,height:500}" :opts="opts">
 
     </Stage>
   </div>
@@ -14,7 +14,12 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      sliderValue:50
+      opts:{
+        child:[
+          {type:'Bitmap',src:'http://donghua.dmzj.com/image/cover/4/10379/9/title_thum.jpg'},
+          {type:'Text',words:'ddddfasfdefgdf',x:200,y:50}
+        ]
+      }
     }
   }
 }
