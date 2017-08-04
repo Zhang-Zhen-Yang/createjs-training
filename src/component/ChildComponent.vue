@@ -1,5 +1,6 @@
 <template>
   <div class="createjs-child">
+  {{ element }}
   </div>
 </template>
 
@@ -25,28 +26,39 @@ export default {
       msg: 'Welcome to Your Vue.js App',
       self:null,
       bitmap:null,
-      render(){
+      render({which}){
         if(!this.parent){
           return;
         }
         switch(this.element.type){          
           case 'Text':
-            let text = new createjs.Text("Hello World", "20px Arial", "#ff7700");
-            text.x=this.element.x||0,
-            text.y=this.element.y||0;
-            this.self = text;
-            this.parent.addChild(text);
-            this.parent.update();
+            if(which == 'parent'){
+              let text = new createjs.Text(this.element.words, "20px Arial", "#ff7700");
+              text.x=this.element.x||0,
+              text.y=this.element.y||0;
+              this.self = text;
+              this.parent.addChild(text);
+              //this.parent.update();
+            }else{
+              this.self.text = this.element.words;
+              //this.parent.update();
+            }
+            
           break;
           case 'Bitmap':
+            if(which == 'parent'){
+              let bitmap = new Image(),Bitmap = new createjs.Bitmap(bitmap);
+              this.bitmap = bitmap;
+              this.self = Bitmap;
+              bitmap.src = this.element.src;
+              this.parent.addChild(Bitmap);
+              bitmap.onload=()=>{
+                this.parent.update()
+              };
+            }else{
+
+            }            
             
-            let bitmap = new Image(),Bitmap = new createjs.Bitmap(bitmap);
-            this.bitmap = bitmap;
-            bitmap.src = this.element.src;
-            this.parent.addChild(Bitmap);
-            bitmap.onload=()=>{
-              this.parent.update()
-            };
           break;
         }
       }      
@@ -54,13 +66,26 @@ export default {
   },
   created(){
     //alert('created');
-    this.render();
+    this.render({which:'parent'});
+  },
+  destroyed(){
+    this.parent.removeChild(this.self);
+    this.parent.update();
+  },
+  computed:{
+    elementJSONStringify(){
+      return JSON.stringify(this.element);
+    }
   },
   watch:{
     parent(nVal,oVal){
       if(nVal){
-        this.render();
+        this.render({which:'parent'});
       }
+    },
+    elementJSONStringify:function(nVal,oVal){
+      //alert(nVal);     
+　　　 this.render({which:'self'});
     }
   }
 }

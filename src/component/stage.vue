@@ -36,27 +36,14 @@ export default {
   data () {
     return {
       stage:null,
-      render(){
-         /* this.opts.child.forEach((item)=>{
-          switch(item.type){
-          case 'Bitmap':let img=new Image(),bitmap = new createjs.Bitmap(img);img.src=item.src;img.onload=()=>{this.update()};
-              this.stage.addChild(bitmap);
-              break;*/
-            /*case 'Text':let text = new createjs.Text("Hello World", "20px Arial", "#ff7700");text.x=item.x||0,text.y=item.y||0;
-              this.stage.addChild(text);              
-              break;
-          }
-        })
-        this.update();*/
-      },
-      update(){
-        this.stage.update();
-      }
     }
   },
   computed:{
     child(){
       return this.opts.child||[];
+    },
+    optsJSONStringify(){
+      return JSON.stringify(this.opts);
     }
   },
   created(){
@@ -65,13 +52,12 @@ export default {
   mounted(){
     if(!this.stage){
       this.stage = new createjs.Stage(this.$refs.canvas);
-      this.render();
     }
   },
   watch:{
-    opts(nVal,oVal){
+    optsJSONStringify(nVal,oVal){
       this.$nextTick(()=>{
-
+        this.stage.update();
       })
     }
   }
