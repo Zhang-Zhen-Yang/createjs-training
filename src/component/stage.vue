@@ -1,12 +1,19 @@
 <template>
   <canvas ref="canvas" id="canvas" :width="size.width" :height="size.height">
-
+    <ChildComponent 
+      v-for="(childElement,index) in child" 
+      :parent="stage" 
+      :element="childElement"
+      :index="index">
+    </ChildComponent>
   </canvas>
 </template>
 
 <script>
+import ChildComponent from './ChildComponent.vue'
 export default {
   name: 'Stage',
+  components:{ ChildComponent },
   props:{
     size:{
       type:Object,
@@ -28,23 +35,19 @@ export default {
   },
   data () {
     return {
-      child:[],
+      stage:null,
       render(){
-        this.opts.child.forEach((item)=>{
+         /* this.opts.child.forEach((item)=>{
           switch(item.type){
-            case 'Bitmap':let img=new Image(),bitmap = new createjs.Bitmap(img);img.src=item.src;img.onload=()=>{this.update()};
+          case 'Bitmap':let img=new Image(),bitmap = new createjs.Bitmap(img);img.src=item.src;img.onload=()=>{this.update()};
               this.stage.addChild(bitmap);
-              
-              //this.child.push({type:'Bitmap',ref:bitmap,bitmapRef:bitmap})
-              break;
-            case 'Text':let text = new createjs.Text("Hello World", "20px Arial", "#ff7700");text.x=item.x||0,text.y=item.y||0;
-              this.stage.addChild(text);
-              //this.child.push({type:text});
-              
+              break;*/
+            /*case 'Text':let text = new createjs.Text("Hello World", "20px Arial", "#ff7700");text.x=item.x||0,text.y=item.y||0;
+              this.stage.addChild(text);              
               break;
           }
         })
-        this.update();
+        this.update();*/
       },
       update(){
         this.stage.update();
@@ -52,7 +55,9 @@ export default {
     }
   },
   computed:{
-    
+    child(){
+      return this.opts.child||[];
+    }
   },
   created(){
     
@@ -60,17 +65,14 @@ export default {
   mounted(){
     if(!this.stage){
       this.stage = new createjs.Stage(this.$refs.canvas);
-      /*var image = new createjs.Bitmap("src/assets/logo.png");
-      this.stage.addChild(image);
-      setTimeout(()=>{
-        this.stage.update();
-      },1000) */
       this.render();
     }
   },
   watch:{
     opts(nVal,oVal){
+      this.$nextTick(()=>{
 
+      })
     }
   }
 }
