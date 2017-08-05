@@ -37,8 +37,17 @@ export default {
         setTimeout(()=>{
           this.opts.child.push({
             type:'Bitmap',
-            src:'http://donghua.dmzj.com/image/cover/4/10379/9/title_thum.jpg'
+            src:'http://donghua.dmzj.com/image/cover/4/10379/9/title_thum.jpg',
+            x:0,
+            y:10,
+            scaleX:0.5,
+            scaleY:0.5,
+            skewX:10
           });
+          setTimeout(()=>{
+            this.opts.child[2].src="http://img1.gtimg.com/comic/pics/hv1/54/239/2229/145001724.jpg";
+            this.$set(this.opts.child[2],'x',20);
+          },1000)
         },100)
       },1000)
     },1000)

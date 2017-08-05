@@ -1,12 +1,20 @@
 <template>
-  <div class="createjs-child">
+  <!--<div class="createjs-child">
   {{ element }}
-  </div>
+  </div>-->
+  <Bitmap v-if="element.type=='Bitmap'" 
+      :parent="parent" 
+      :element="element"
+      :index="index"></Bitmap>
+  <CText v-else-if="element.type=='Text'"></CText>
 </template>
 
 <script>
+import Bitmap from './Bitmap.vue'
+import CText from './Text.vue'
 export default {
   name: 'createjs-child',
+  components:{ Bitmap, CText },
   props:{
     parent:{
       type:Object,
@@ -19,6 +27,10 @@ export default {
       default(){
         return null;
       }
+    },
+    index:{
+      type:Number,
+      default:0
     }
   },
   data () {
@@ -47,14 +59,14 @@ export default {
           break;
           case 'Bitmap':
             if(which == 'parent'){
-              let bitmap = new Image(),Bitmap = new createjs.Bitmap(bitmap);
+              /*let bitmap = new Image(),Bitmap = new createjs.Bitmap(bitmap);
               this.bitmap = bitmap;
               this.self = Bitmap;
               bitmap.src = this.element.src;
               this.parent.addChild(Bitmap);
               bitmap.onload=()=>{
                 this.parent.update()
-              };
+              };*/
             }else{
 
             }            
