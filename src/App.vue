@@ -17,7 +17,8 @@ export default {
       opts:{
         child:[
           {type:'Bitmap',src:'http://wx2.sinaimg.cn/mw690/d6acdda5ly1fi7m7wvx6aj20m80vddoq.jpg'},
-          {type:'Text',words:'ddddfasfdefgdf',x:200,y:50}
+          {type:'Text',words:'ddddfasfdefgdf',x:200,y:50},
+          {type:'Shape',fill:'#ff0000',shape:'rect',}
         ]
       }
     }
