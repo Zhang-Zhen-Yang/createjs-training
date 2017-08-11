@@ -29,7 +29,7 @@ export default {
           this.self.skewY = this.skewY;
           this.self.graphics.beginFill("#ff0000").drawRect(100, 100, 200, 200);
           this.parent.addChild(Shape);
-          alert('shape');
+        
           
         }else{
 

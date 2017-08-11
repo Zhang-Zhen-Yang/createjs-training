@@ -3,7 +3,10 @@
       :parent="parent" 
       :element="element"
       :index="index"></Bitmap>
-  <CText v-else-if="element.type=='Text'"></CText>
+  <CText v-else-if="element.type=='Text'"
+      :parent="parent" 
+      :element="element"
+      :index="index"></CText>
   <Shape v-else-if="element.type=='Shape'" 
       :parent="parent" 
       :element="element"
